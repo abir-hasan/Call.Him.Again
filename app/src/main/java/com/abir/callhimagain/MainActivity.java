@@ -20,8 +20,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnCall = (Button) findViewById(R.id.btnCall);
-        etNumber = (EditText) findViewById(R.id.etNumber);
+        init();
+        bindCallButton();
+        registerListenerService();
+    }
+
+    private void registerListenerService() {
+        Intent intent = new Intent(this, CallDetectService.class);
+        startService(intent);
+    }
+
+    private void bindCallButton() {
         btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -31,8 +40,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
-        Intent intent = new Intent(this, CallDetectService.class);
-        startService(intent);
+    private void init() {
+        btnCall = (Button) findViewById(R.id.btnCall);
+        etNumber = (EditText) findViewById(R.id.etNumber);
     }
 }
